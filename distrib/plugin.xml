@@ -9,6 +9,6 @@
    classname="org.pentaho.di.trans.steps.s3csvinput.S3CsvInputMeta">
    <libraries>
     <library name="s3csvinput.jar"/>
-    <library name="jets3t-0.6.0.jar"/>
+    <library name="jets3t-0.7.0.jar"/>
     </libraries>
 </plugin>

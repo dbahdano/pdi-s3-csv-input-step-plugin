@@ -10,6 +10,6 @@
 	<classpathentry kind="lib" path="libext/kettle-core.jar"/>
 	<classpathentry kind="lib" path="libext/kettle-engine.jar"/>
 	<classpathentry kind="lib" path="libext/kettle-ui-swt.jar"/>
-	<classpathentry kind="lib" path="libext/jets3t-0.6.0.jar"/>
+	<classpathentry kind="lib" path="libext/jets3t-0.7.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
