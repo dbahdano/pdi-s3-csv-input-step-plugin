@@ -801,7 +801,7 @@ public class S3CsvInputDialog extends BaseStepDialog implements StepDialogInterf
             
             // Read a line of data to determine the number of rows...
             //
-            String line = TextFileInput.getLine(log, reader, TextFileInputMeta.FILE_FORMAT_MIXED, new StringBuffer(1000));
+            String line = TextFileInput.getLine(log, reader, TextFileInputMeta.FILE_FORMAT_MIXED, new StringBuilder(1000));
             
             // Split the string, header or data into parts...
             //
