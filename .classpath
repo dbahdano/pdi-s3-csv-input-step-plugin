@@ -7,10 +7,10 @@
 	<classpathentry kind="lib" path="libswt/common.jar"/>
 	<classpathentry kind="lib" path="libswt/jface.jar"/>
 	<classpathentry kind="lib" path="libswt/runtime.jar"/>
-	<classpathentry kind="lib" path="libext/kettle-core.jar"/>
-	<classpathentry kind="lib" path="libext/kettle-engine.jar"/>
-	<classpathentry kind="lib" path="libext/kettle-ui-swt.jar"/>
+	<classpathentry kind="lib" path="libext/kettle-core-4.0.jar"/>
+	<classpathentry kind="lib" path="libext/kettle-engine-4.0.jar"/>
+	<classpathentry kind="lib" path="libext/kettle-ui-swt-4.0.jar"/>
 	<classpathentry kind="lib" path="libext/jets3t-0.7.0.jar"/>
-	<classpathentry kind="lib" path="libext/kettle-db.jar"/>
+	<classpathentry kind="lib" path="libext/kettle-db-4.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

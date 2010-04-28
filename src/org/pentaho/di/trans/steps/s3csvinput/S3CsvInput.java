@@ -637,11 +637,4 @@ public class S3CsvInput extends BaseStep implements StepInterface
 			throw new KettleException("Unable to close file channel for file '"+data.filenames[data.filenr-1],e);
 		}
 	}
-	
-	//
-	// Run is were the action happens!
-	public void run()
-	{
-    	BaseStep.runStepThread(this, meta, data);
-	}
 }
