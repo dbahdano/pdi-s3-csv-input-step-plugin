@@ -1,7 +1,7 @@
 <project name="S3CsvInput" default="default" basedir=".">
 
 	  <description>
-	  	S3 CSV Input build file
+	  	S3 Input build file
 	    </description>
 
 	  <tstamp prefix="start"/>

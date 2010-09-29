@@ -3,7 +3,7 @@
 <plugin
    id="S3CSVINPUT"
    iconfile="S3CIN.png"
-   description="S3 CSV Input"
+   description="S3 Input"
    tooltip="Is capable of reading CSV data stored on Amazon S3 in parallel"
    category="Input"
    classname="org.pentaho.di.trans.steps.s3csvinput.S3CsvInputMeta">
