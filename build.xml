@@ -1,130 +1,49 @@
-<project name="S3CsvInput" default="default" basedir=".">
-
-	  <description>
-	  	S3 Input build file
-	    </description>
-
-	  <tstamp prefix="start"/>
-
-	  <!-- system properties to use -->
-	  <property name= "cr" value="${line.separator}"/> 
-		
-	  <!-- set global properties for this build -->
+<!--===========================================================================
+  This is the build file for the Pentaho Big Data Project
+  
+  This build file will use the subfloor.xml file as the default build
+  process and should only override the tasks that need to differ from
+  the common build file.
+  
+  See subfloor.xml for more details
+============================================================================-->
+<project name="S3 CSV Input" basedir="." default="dist"
+	xmlns:ivy="antlib:org.apache.ivy.ant">
 	
-	  <property name="src"        			location="src"/> 
-	  <property name="classes"        		location="classes"/> 
-	  <property name="lib"        			location="lib"/>
-	  <property name="distrib"        		location="distrib"/>
-	  <property name="libext"     			location="libext"/>
-	  <property name="libswt"     			location="libswt"/>
-	  <property name="deploydir"     		location="S3CsvInput"/>
-	
-	  <target name="init" description="create timestamp and directories">
-    	<echo>Init...</echo>
-	  	
-	    <tstamp/>
-	    <mkdir dir="${classes}"/>
-	    <mkdir dir="${lib}"/>
-	    <mkdir dir="${distrib}"/>
-	    <mkdir dir="${deploydir}"/>
-	  </target>
+	<description>
+	  This build file is used to create S3 CSV Input Step plugin project and works with the subfloor.xml file.
+	</description>
+  
+  <!-- Import the common_build.xml file which contains all the default tasks -->  
+  <import file="build-res/subfloor-pkg.xml"/>
 
-	  <!--
-	       ==========================
-	            Compile the code
-	       ==========================
-	  -->
+  <!-- Setup the compile classpath -->
+    <path id="classpath">
+      <fileset dir="${provided.lib.dir}">
+        <include name="**/*.jar" />
+      </fileset>
+      <fileset dir="${lib.dir}">
+        <include name="**/*.jar" />
+      </fileset>
+    </path>
 
-	  <target name="compile" depends="init" description="compile the source " >
-	  	<echo>Compiling S3CsvInput plugin...</echo>
-	    <javac srcdir="${src}" 
-	    	   destdir="${classes}"
-	    	   debug="true"
-	    	   optimize="false"
-	    	>
+  <target name="clean-jars" depends="subfloor.clean-jars">
+    <delete dir="${provided.lib.dir}"/>
+  </target>
 
-	    	<classpath id="cpath">
-				<fileset dir="${libext}" 		includes="*.jar"/>
-				<fileset dir="${libswt}" 		includes="*.jar"/>
-				<fileset dir="${libswt}/win32/" includes="*.jar"/>
-		  		</classpath>
-	    </javac>
-	  </target>
-	
-	  <!-- ==========================
-	          Copy additional files
-	       ==========================
-	  -->
+  <target name="resolve" depends="subfloor.resolve">
+    <ivy:resolve file="${ivyfile}" conf="provided" />
+    <ivy:retrieve conf="provided" pattern="${provided.lib.dir}/[module]-[revision](-[classifier]).[ext]" symlink="${ivy.use.symlinks.internal}" /> 
+  </target>
 
-	  <target name="copy" depends="compile" description="copy images etc to classes directory" >
-	  	<echo>Copying images etc to classes directory...</echo>
-	    <copy todir="${classes}">
-	    	<fileset 
-	    		dir="${src}" 
-	    		includes="**/*.png,**/*.xml,**/*.properties"/>
-	  	    </copy>
-	  </target>
-			
-	  <!--
-	       ==========================
-	                library
-	       ==========================
-	  -->
-		
-	  <target name="s3csvinput" depends="compile, copy" description="generate s3csvinput.jar">
-	  	<echo>Generating the Kettle library shapefilereader3.jar ...</echo>
-	  	<jar 
-	    	jarfile="${lib}/s3csvinput.jar" 
-	    	basedir="${classes}" 
-	    	includes="**/*"/>	 
-	  </target>
+  <target name="assemble.copy-libs">
+      <copy todir="${stage.dir}/${ivy.artifact.id}">
+        <fileset dir="${lib.dir}" />
+      </copy>
+      <copy tofile="${stage.dir}/${ivy.artifact.id}/s3csvinput.jar" >
+        <fileset file="${dist.dir}/${package.basename}.jar" />
+      </copy>
+    </target>
 
-	  <!--
-	       ==========================
-	           distrib for plugin
-	       ==========================
-	  -->
 
-	  <target name="distrib" depends="s3csvinput" description="Create the distribution package..." >
-	  	<echo>Copying libraries to distrib directory...</echo>
-	    <copy todir="${distrib}">
-	    	<fileset 
-	    		dir="${lib}" 
-	    		includes="**/*.jar"/>
-	  	    </copy>
-	  </target>
-
-	  <!--
-	       ==========================
-	            deploy to Kettle
-	       ==========================
-	  -->
-
-	  <target name="deploy" depends="distrib" description="Deploy distribution..." >
-	  	<echo>deploying plugin...</echo>
-	    <copy todir="${deploydir}">
-	    	<fileset 
-	    		dir="${distrib}" 
-	    		includes="**/*.*"/>
-	  	    </copy>
-	  </target>
-
-	<!--
-	       ==========================
-	          Default target: all
-	       ==========================
-	  -->
-	<target name="default" depends="deploy" description="default = build all"/>
-
-	<!--
-	       ==========================
-	              C L E A N
-	       ==========================
-	  -->
-
-	  <target name="clean"  description="clean up generated files" >
-	    <delete dir="${classes}"/>
-	    <delete dir="${lib}"/>
-	  </target>
-	
 </project>

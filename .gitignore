@@ -1,0 +1,15 @@
+bin/
+dist/
+lib/
+lib-provided/
+test-lib/
+eclipse-bin/
+override.properties
+.classpath
+.project
+.DS_Store
+*.class
+*.jar
+*.war
+*.ear
+*.iml
