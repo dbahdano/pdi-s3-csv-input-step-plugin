@@ -50,6 +50,8 @@ import org.pentaho.di.trans.steps.textfileinput.TextFileInputField;
 import org.pentaho.di.trans.steps.textfileinput.TextFileInputMeta;
 import org.w3c.dom.Node;
 
+import javax.crypto.EncryptedPrivateKeyInfo;
+
 
 /**
  * @author matt
@@ -644,8 +646,8 @@ public class S3CsvInputMeta extends BaseStepMeta implements StepMetaInterface, I
 
     // Try to connect to S3 first
     //
-    String accessKey = space.environmentSubstitute( awsAccessKey );
-    String secretKey = space.environmentSubstitute( awsSecretKey );
+    String accessKey = Encr.decryptPasswordOptionallyEncrypted( space.environmentSubstitute( awsAccessKey ) );
+    String secretKey = Encr.decryptPasswordOptionallyEncrypted( space.environmentSubstitute( awsSecretKey ) );
     AWSCredentials awsCredentials = new AWSCredentials( accessKey, secretKey );
 
     S3Service s3service = new RestS3Service( awsCredentials );
